@@ -3,21 +3,17 @@ package wsc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
 
-import javax.naming.InitialContext;
-
+import nodes.Node;
+import nodes.ParallelNode;
 import ec.BreedingPipeline;
 import ec.EvolutionState;
 import ec.Individual;
 import ec.util.Parameter;
-import nodes.Node;
-import nodes.ParallelNode;
 
 public class WSCCrossoverPipeline extends BreedingPipeline {
 
@@ -83,12 +79,13 @@ public class WSCCrossoverPipeline extends BreedingPipeline {
             // Select the fragment root for crossover
             String selected = null;
 
+            outerLoop:
             for (String s1 : allT1Keys) {
                 if (!s1.equals("start")) {
                     for (String s2 : allT2Keys) {
                         if (s1.equals( s2 )) {
                             selected = s1;
-                            break;
+                            break outerLoop;
                         }
                     }
                 }
@@ -121,7 +118,7 @@ public class WSCCrossoverPipeline extends BreedingPipeline {
 	    queue.offer( selected );
 	    while(!queue.isEmpty()) {
 	        String current = queue.poll();
-	        if (!replacementMap.containsKey( current ) && !current.equals("start")) {
+	        if (!replacementMap.containsKey( current ) && !current.equals( "start" )) {
 	            Node newValue = originalMap.get(current).clone();
 	            replacementMap.put( current, newValue );
 
@@ -159,14 +156,13 @@ public class WSCCrossoverPipeline extends BreedingPipeline {
         	queue.offer(init.getName(leftChild));
         }
 
-
 	    while(!queue.isEmpty()) {
 	        String current = queue.poll();
 	        if (!originalMap.containsKey( current )) {
                 Node v = replacements.get(current).clone();
                 originalMap.put( current, v );
 
-                leftChild = newValue.getChildren().get(0);
+                leftChild = v.getChildren().get(0);
 
         	    if (leftChild instanceof ParallelNode) {
                 	for (Node grandchild : leftChild.getChildren()) {
