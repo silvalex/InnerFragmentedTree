@@ -1,16 +1,13 @@
 package wsc;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import nodes.Node;
 import ec.Individual;
 import ec.simple.SimpleFitness;
 import ec.util.Parameter;
-import nodes.Node;
-import nodes.SequenceNode;
 
 public class WSCIndividual extends Individual {
 
@@ -55,13 +52,11 @@ public class WSCIndividual extends Individual {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		builder.append("digraph g {");
 		for (Entry<String, Node> e : predecessorMap.entrySet()) {
-			builder.append("(");
-			builder.append(e.getKey());
-			builder.append(",");
-			builder.append(e.getValue());
-			builder.append("), ");
+			builder.append(e.getValue().toString());
 		}
+		builder.append("}");
 		return builder.toString();
 	}
 

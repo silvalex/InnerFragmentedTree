@@ -24,16 +24,32 @@ public class SequenceNode implements Node {
 		return newRoot;
 	}
 
-	@Override
-	public String toString(){
-		StringBuilder builder = new StringBuilder();
-		builder.append("SequenceNode(");
-		for (int i = 0; i < children.size(); i++){
-			builder.append(children.get(i).toString());
-			if (i != children.size()-1)
-				builder.append(", ");
-		}
-		builder.append(")");
-		return builder.toString();
-	}
+//	@Override
+//	public String toString(){
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("SequenceNode(");
+//		for (int i = 0; i < children.size(); i++){
+//			builder.append(children.get(i).toString());
+//			if (i != children.size()-1)
+//				builder.append(", ");
+//		}
+//		builder.append(")");
+//		return builder.toString();
+//	}
+	
+	   @Override
+	    public String toString() {
+	        StringBuilder builder = new StringBuilder();
+	        builder.append(String.format("%d [label=\"Sequence\"]; ", hashCode()));
+	        if (children != null) {
+	            for (int i = 0; i < children.size(); i++) {
+	                Node child = children.get(i);
+	                if (child != null) {
+	                    builder.append(String.format("%d -> %d [dir=back]; ", hashCode(), child.hashCode()));
+	                    builder.append(child.toString());
+	                }
+	            }
+	        }
+	        return builder.toString();
+	    }
 }

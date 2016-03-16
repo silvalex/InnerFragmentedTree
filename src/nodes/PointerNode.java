@@ -14,10 +14,20 @@ public class PointerNode implements Node{
 		return this;
 	}
 
+//	@Override
+//	public String toString(){
+//		return String.format("PointerNode(%s)", service);
+//	}
+	
 	@Override
-	public String toString(){
-		return String.format("PointerNode(%s)", service);
-	}
+    public String toString() {
+        String serviceName;
+        if (service == null)
+            serviceName = "null";
+        else
+            serviceName = service;
+        return String.format("%d [label=\"Pointer(%s)\"]; ", hashCode(), serviceName);
+    }
 
 	@Override
 	public List<Node> getChildren() {

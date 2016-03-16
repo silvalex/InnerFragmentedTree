@@ -25,9 +25,19 @@ public class ServiceNode implements Node {
 		return this;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("ServiceNode(%s)", service.getName());
-	}
+//	@Override
+//	public String toString() {
+//		return String.format("ServiceNode(%s)", service.getName());
+//	}
+	
+   @Override
+    public String toString() {
+        String serviceName;
+        if (service == null)
+            serviceName = "null";
+        else
+            serviceName = service.name;
+        return String.format("%d [label=\"Service(%s)\"]; ", hashCode(), serviceName);
+    }
 
 }
